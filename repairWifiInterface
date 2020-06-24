@@ -1,0 +1,11 @@
+#!/bin/bash
+#echo "Podmieniam nazwe interfejsu WiFi..."
+
+#cat /proc/net/wireless | perl -ne '/(\w+):/ && print $1)'
+
+var=$(find /sys/class/net -follow -maxdepth 2 -name wireless | cut -d / -f 5)
+#echo "$var"
+
+sed -i "s/wlp3s0/$var/g" /etc/hostapd/hostapd.conf
+sed -i "s/wlp3s0/$var/g" /etc/network/interfaces
+sed -i "s/wlp3s0/$var/g" /etc/dnsmasq.conf
